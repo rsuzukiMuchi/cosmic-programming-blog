@@ -13,9 +13,9 @@ const outroLines = [
 ];
 
 const posts = [
-  "月はなぜ落ちてこないの？",
-  "太陽はどうして燃え続けるの？",
-  "プログラムで昼と夜を再現してみる",
+  { title: "月はなぜ落ちてこないの？", href: "/sample", label: "SPACE" },
+  { title: "なぜReactが選ばれるのか", href: "/posts/why-react", label: "PROGRAMMING" },
+  { title: "太陽はどうして燃え続けるの？", href: "#記事", label: "NEXT" },
 ];
 
 export default function Home() {
@@ -69,11 +69,16 @@ export default function Home() {
 
         <section className="grid gap-4 py-8 sm:grid-cols-3" id="記事">
           {posts.map((post, index) => (
-            <article className="rounded-lg border border-white/10 bg-white/[0.04] p-5" key={post}>
+            <a
+              className="rounded-lg border border-white/10 bg-white/[0.04] p-5 transition hover:border-comet/50 hover:bg-white/[0.07] focus:outline-none focus:ring-2 focus:ring-comet"
+              href={post.href}
+              key={post.title}
+            >
               <p className="font-mono text-xs text-slate-500">POST 0{index + 1}</p>
-              <h2 className="mt-3 text-xl font-bold leading-8 text-white">{post}</h2>
+              <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-comet">{post.label}</p>
+              <h2 className="mt-3 text-xl font-bold leading-8 text-white">{post.title}</h2>
               <p className="mt-3 text-sm leading-7 text-slate-400">問いから始めて、漫画、歴史、解説へ進む記事の見本です。</p>
-            </article>
+            </a>
           ))}
         </section>
 
