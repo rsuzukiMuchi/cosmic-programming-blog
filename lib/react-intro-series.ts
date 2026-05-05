@@ -19,6 +19,11 @@ export type ReactIntroArticle = {
 
 export const reactIntroSources = [
   {
+    title: "React 公式ドキュメント Learn",
+    url: "https://ja.react.dev/learn",
+    note: "コンポーネント、JSX、props、条件付きレンダー、リスト、イベント、state、Hooksなど、Reactの中心概念を学べる公式ガイド。",
+  },
+  {
     title: "改訂新版 これからはじめるReact実践入門",
     url: "https://www.sbcr.jp/product/4815635947/",
     note: "React 19以降、Next.js 15以降、モダンJavaScript、TypeScript、Next.jsによるアプリ開発を扱う入門書。",
