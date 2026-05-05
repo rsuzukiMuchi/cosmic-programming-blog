@@ -155,6 +155,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
   const nextArticle = article.next ? getReactIntroArticle(article.next) : undefined;
   const extra = articleExtras[article.slug];
+  const readingMinutes = article.order <= 3 ? 12 : 8;
 
   return (
     <main className="min-h-screen bg-night text-ink">
@@ -182,6 +183,12 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           </p>
           <h1 className="mt-4 text-4xl font-black leading-tight text-white sm:text-6xl">{article.title}</h1>
           <p className="mt-6 text-lg leading-9 text-slate-300">{article.intro}</p>
+          <div className="mt-6 flex flex-wrap gap-2 text-sm text-slate-400">
+            <span className="rounded-md border border-white/10 px-3 py-2">React入門</span>
+            <span className="rounded-md border border-white/10 px-3 py-2">LESSON {String(article.order).padStart(2, "0")}</span>
+            <span className="rounded-md border border-white/10 px-3 py-2">読了目安 {readingMinutes}分</span>
+            <span className="rounded-md border border-white/10 px-3 py-2">読む + 見る</span>
+          </div>
 
           <div className="mt-10">
             {/*
@@ -243,6 +250,13 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
           {extra ? (
             <>
+              <section className="mt-12 rounded-lg border border-orbit/30 bg-yellow-300/10 p-5">
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-orbit">chapter summary</p>
+                <h2 className="mt-3 text-2xl font-bold text-white">この章のまとめ</h2>
+                <p className="mt-4 text-base leading-8 text-slate-300">{article.conclusion}</p>
+                <p className="mt-3 text-base leading-8 text-slate-300">{article.lesson}</p>
+              </section>
+
               <section className="mt-12 space-y-5">
                 <h2 className="text-2xl font-bold text-white">よくあるつまずき</h2>
                 <div className="grid gap-3">
