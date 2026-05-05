@@ -14,7 +14,7 @@ const outroLines = [
 
 const posts = [
   { title: "月はなぜ落ちてこないの？", href: "/sample", label: "SPACE" },
-  { title: "なぜReactが選ばれるのか", href: "/posts/why-react", label: "PROGRAMMING" },
+  { title: "React入門を一通り学ぶ", href: "/posts/react-intro", label: "PROGRAMMING" },
   { title: "太陽はどうして燃え続けるの？", href: "#記事", label: "NEXT" },
 ];
 
