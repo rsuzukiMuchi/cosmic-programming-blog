@@ -39,7 +39,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
   const lane = getReactIntroLane(article.lane);
   const nextArticle = article.next ? getReactIntroArticle(article.next) : undefined;
-  const readingMinutes = article.order <= 6 ? 14 : 10;
+  const readingMinutes = article.order <= 6 ? 22 : 18;
 
   return (
     <main className="min-h-screen bg-night text-ink">
@@ -75,7 +75,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
               React入門 導入漫画 台本:
               {article.manga.introScript.join("\n              ")}
             */}
-            <MangaImage alt={article.manga.introAlt} priority src="/images/manga/why-react-intro.webp" />
+            <MangaImage alt={article.manga.introAlt} priority src={article.manga.introSrc} />
           </div>
 
           <section className="mt-12 space-y-5">
@@ -86,6 +86,18 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           <section className="mt-12 border-l-4 border-coral bg-white/[0.04] p-6">
             <h2 className="text-2xl font-bold text-white">結論</h2>
             <p className="mt-4 text-lg leading-9 text-slate-300">{article.conclusion}</p>
+          </section>
+
+          <section className="mt-12 space-y-5">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">reader guide</p>
+              <h2 className="mt-3 text-2xl font-bold text-white">この章の読み方</h2>
+            </div>
+            <div className="grid gap-3">
+              <GuideCard label="初心者はここを掴む" value={article.readerGuide.beginner} />
+              <GuideCard label="中級者はここを見る" value={article.readerGuide.intermediate} />
+              <GuideCard label="画面で試すこと" value={article.readerGuide.handsOn} />
+            </div>
           </section>
 
           <section className="mt-12 space-y-5">
@@ -206,7 +218,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
               React入門 締め漫画 台本:
               {article.manga.outroScript.join("\n              ")}
             */}
-            <MangaImage alt={article.manga.outroAlt} caption="分かったことを、家のテーブルで説明できるくらいまで小さくする。" src="/images/manga/why-react-outro.webp" />
+            <MangaImage alt={article.manga.outroAlt} caption="分かったことを、家のテーブルで説明できるくらいまで小さくする。" src={article.manga.outroSrc} />
           </div>
 
           <footer className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
@@ -222,5 +234,14 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
         </article>
       </div>
     </main>
+  );
+}
+
+function GuideCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-lg border border-white/10 bg-slate-950/70 p-5">
+      <h3 className="text-lg font-bold text-white">{label}</h3>
+      <p className="mt-2 text-base leading-8 text-slate-300">{value}</p>
+    </div>
   );
 }

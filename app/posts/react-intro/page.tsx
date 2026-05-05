@@ -30,9 +30,9 @@ export default function ReactIntroIndexPage() {
             </p>
           </div>
           <MangaImage
-            alt="黄色いパーカーの娘がReactの画面を指し、丸眼鏡の父が値から画面を見ると説明する漫画"
+            alt="黄色いパーカーの娘と丸眼鏡の父が机でノートパソコンを開き、Reactを一緒に学ぶキャラクター参照画像"
             priority
-            src="/images/manga/why-react-intro.webp"
+            src="/images/characters/father-daughter-reference.webp"
           />
         </section>
 
