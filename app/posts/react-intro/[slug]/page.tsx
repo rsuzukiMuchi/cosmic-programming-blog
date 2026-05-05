@@ -89,8 +89,8 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           {article.demo ? (
             <section className="mt-12 space-y-5">
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">try first</p>
-                <h2 className="mt-3 text-2xl font-bold text-white">まず触ってみる</h2>
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">watch the change</p>
+                <h2 className="mt-3 text-2xl font-bold text-white">画面の変化を見る</h2>
               </div>
               <p className="text-base leading-8 text-slate-300">{article.lesson}</p>
               <ReactPlayground kind={article.demo} />
