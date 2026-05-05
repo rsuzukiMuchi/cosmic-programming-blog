@@ -26,6 +26,8 @@ const topicSets = [
   ["component", "props", "state", "effect"],
 ];
 
+const stepLabels = ["きっかけ", "値", "再描画", "画面"];
+
 const lessonCopy = {
   effect: {
     signal: "1秒たった",
@@ -64,6 +66,11 @@ export function ReactPlayground({ kind }: { kind: LessonKind }) {
 
   useEffect(() => {
     setStep(0);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
     const timerId = window.setInterval(() => {
       setStep((current) => (current + 1) % 4);
     }, 1800);
@@ -86,6 +93,22 @@ export function ReactPlayground({ kind }: { kind: LessonKind }) {
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">react flow</p>
             <span className="rounded-md border border-white/10 px-2 py-1 text-xs text-slate-400">自動で変化します</span>
+          </div>
+
+          <div className="mb-4 grid grid-cols-4 gap-2" aria-label="表示する段階">
+            {stepLabels.map((label, index) => (
+              <button
+                aria-pressed={step === index}
+                className={`min-h-11 cursor-pointer rounded-md border px-2 py-2 text-xs font-bold transition focus:outline-none focus:ring-2 focus:ring-comet ${
+                  step === index ? "border-comet bg-comet text-slate-950" : "border-white/10 bg-white/[0.04] text-slate-300 hover:bg-white/10"
+                }`}
+                key={label}
+                onClick={() => setStep(index)}
+                type="button"
+              >
+                {index + 1}. {label}
+              </button>
+            ))}
           </div>
 
           <div className="grid gap-3">

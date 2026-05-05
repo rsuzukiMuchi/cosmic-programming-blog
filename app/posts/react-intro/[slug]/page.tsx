@@ -17,6 +17,75 @@ const introAlt =
 const outroAlt =
   "娘がReactの部品を見て「何度も使える？」と聞き、父が「父も再利用したい」とぼやく2コマ漫画";
 
+type ConceptMap = {
+  check: string;
+  flow: Array<{
+    label: string;
+    note: string;
+    title: string;
+  }>;
+  plainWords: Array<{
+    meaning: string;
+    term: string;
+  }>;
+};
+
+const defaultConceptMap: ConceptMap = {
+  check: "この章では、用語を暗記する前に「値がどこから来て、どこで表示されるか」を追います。",
+  flow: [
+    { label: "STEP 1", note: "まず、この章で扱う部品や値を見つけます。", title: "材料を見る" },
+    { label: "STEP 2", note: "値がどのコンポーネントへ渡り、どこで使われるかを追います。", title: "流れを見る" },
+    { label: "STEP 3", note: "最後に、画面のどの表示が変わるのかを確認します。", title: "結果を見る" },
+  ],
+  plainWords: [
+    { meaning: "画面の部品。役割ごとに名前を付けたまとまり。", term: "コンポーネント" },
+    { meaning: "画面を作る材料になる文字、数字、配列、状態。", term: "値" },
+    { meaning: "値から新しい画面を作るReactの基本動作。", term: "再描画" },
+  ],
+};
+
+const conceptMaps: Record<string, ConceptMap> = {
+  "why-react": {
+    check: "Reactを学ぶ最初のゴールは、「画面を直接いじる」から「値を変えて画面を作る」へ見方を変えることです。",
+    flow: [
+      { label: "STEP 1", note: "ボタン、カード、入力欄、一覧など、画面を名前付きの部品に分けます。", title: "画面を部品で見る" },
+      { label: "STEP 2", note: "表示の元になる数値、文字、ログイン状態などを見つけます。", title: "変わる値を見つける" },
+      { label: "STEP 3", note: "値が変わったら、Reactがその値を使って画面をもう一度作ります。", title: "値から表示を作る" },
+    ],
+    plainWords: [
+      { meaning: "画面の部品。ボタン、カード、フォームのようなまとまり。", term: "コンポーネント" },
+      { meaning: "部品に渡す材料。同じ部品の中身を変えるための値。", term: "props" },
+      { meaning: "部品自身が覚える値。変わると画面も変わる。", term: "state" },
+    ],
+  },
+  "mental-model": {
+    check: "この章では、Reactの中で起きていることを「きっかけ、値、再描画、画面」の4つに分けて見ます。",
+    flow: [
+      { label: "STEP 1", note: "ボタンを押す、入力する、データが届く。まず画面が変わるきっかけがあります。", title: "きっかけが起きる" },
+      { label: "STEP 2", note: "setCountのような関数で、Reactに値が変わったことを知らせます。", title: "stateが変わる" },
+      { label: "STEP 3", note: "Reactがコンポーネントをもう一度計算し、新しい表示結果を作ります。", title: "画面を作り直す" },
+    ],
+    plainWords: [
+      { meaning: "現在の値からコンポーネントをもう一度計算すること。", term: "再描画" },
+      { meaning: "画面の元になる、今の数値や文字。", term: "state" },
+      { meaning: "コンポーネントが返す、画面の設計図。", term: "JSX" },
+    ],
+  },
+  jsx: {
+    check: "JSXは、HTMLっぽい見た目の中にJavaScriptの値を差し込める書き方です。",
+    flow: [
+      { label: "STEP 1", note: "まずHTMLに似たタグで、画面の形を書きます。", title: "形を書く" },
+      { label: "STEP 2", note: "{name} のように波かっこを使い、JavaScriptの値を入れます。", title: "値を差し込む" },
+      { label: "STEP 3", note: "値が変わると、同じJSXから違う表示ができます。", title: "表示が変わる" },
+    ],
+    plainWords: [
+      { meaning: "Reactで画面の形を書くための書き方。HTMLに似ている。", term: "JSX" },
+      { meaning: "JSXの中でJavaScriptの値を入れる場所。", term: "波かっこ" },
+      { meaning: "最終的に値になるJavaScript。name、count + 1 など。", term: "式" },
+    ],
+  },
+};
+
 const articleExtras: Record<
   string,
   {
@@ -204,6 +273,8 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
             <p className="mt-4 text-lg leading-9 text-slate-300">{article.conclusion}</p>
           </section>
 
+          <LearningMap slug={article.slug} />
+
           {extra ? (
             <section className="mt-12 grid gap-4">
               <div className="rounded-lg border border-white/10 bg-slate-950/70 p-5">
@@ -325,5 +396,42 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
         </article>
       </div>
     </main>
+  );
+}
+
+function LearningMap({ slug }: { slug: string }) {
+  const map = conceptMaps[slug] ?? defaultConceptMap;
+
+  return (
+    <section className="mt-12 space-y-5">
+      <div className="rounded-lg border border-comet/30 bg-sky-400/10 p-5">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">before reading</p>
+        <h2 className="mt-3 text-2xl font-bold text-white">まず、この地図だけ持って読む</h2>
+        <p className="mt-4 text-base leading-8 text-slate-300">{map.check}</p>
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-3">
+        {map.flow.map((item) => (
+          <div className="rounded-lg border border-white/10 bg-slate-950/70 p-4" key={item.title}>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-coral">{item.label}</p>
+            <h3 className="mt-3 text-lg font-bold text-white">{item.title}</h3>
+            <p className="mt-2 text-sm leading-7 text-slate-400">{item.note}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">plain words</p>
+        <h2 className="mt-3 text-2xl font-bold text-white">用語を父の言葉に直す</h2>
+        <dl className="mt-4 grid gap-3">
+          {map.plainWords.map((word) => (
+            <div className="grid gap-2 border-t border-white/10 pt-3 sm:grid-cols-[8rem_minmax(0,1fr)]" key={word.term}>
+              <dt className="font-bold text-white">{word.term}</dt>
+              <dd className="text-base leading-7 text-slate-300">{word.meaning}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
   );
 }
