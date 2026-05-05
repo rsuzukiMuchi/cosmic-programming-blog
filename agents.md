@@ -98,6 +98,207 @@
 React入門記事は、単なる解説記事ではなく、
 「画面で変化が見える学び直し教材」として作る。
 
+### React Knowledge Map（理解の体系）
+
+Reactを理解するための知識は、単発の用語ではなく、
+「Webの土台 → JavaScriptの土台 → Reactの中心概念 → アプリ設計 → 周辺技術」
+の順に積み上げる。
+
+記事を書くときは、必ずどの知識領域の記事なのかを意識する。
+
+#### 0. Webの前提知識
+Reactそのものに入る前の土台。
+
+- HTML: 画面の構造を作る
+- CSS: 見た目を整える
+- JavaScript: 画面に動きを付ける
+- DOM: ブラウザが持つ画面の実体
+- イベント: クリック、入力、送信などユーザー操作
+- HTTP / API: 外部データを取得する考え方
+
+父の言葉:
+「Reactはブラウザの上で動く。だから、まずブラウザが何をしているかを少し知る。」
+
+#### 1. JavaScript / TypeScriptの基礎
+Reactのコードを読むための言語の土台。
+
+- 変数、関数、配列、オブジェクト
+- map / filter / reduce
+- 分割代入
+- import / export
+- Promise / async / await
+- TypeScriptの型
+- propsやAPIレスポンスに型を付ける考え方
+
+父の言葉:
+「Reactの難しさの半分は、ReactではなくJavaScriptでつまずいていることがある。」
+
+#### 2. Reactの中心概念
+React理解の必修科目群。
+
+- Component: 画面を部品に分ける
+- JSX: JavaScriptの値を混ぜられる画面の設計図
+- props: 親から子へ渡す材料
+- state: 部品自身が覚える変化する値
+- render: 値から画面を計算する
+- re-render: 値が変わったので画面を計算し直す
+- event handling: ユーザー操作を受け取る
+- conditional rendering: 条件で表示を変える
+- list rendering: 配列から複数の表示を作る
+- key: リストの項目を見分ける名札
+
+父の言葉:
+「Reactの中心は、画面を直接いじることではなく、値から画面を作ること。」
+
+#### 3. State設計とデータの流れ
+Reactでアプリを作るときの理解の山場。
+
+- stateをどこに置くか
+- propsで値を渡す
+- 子から親へイベントで知らせる
+- derived state: stateにしなくてよい値
+- controlled component: 入力欄とstateをつなぐ
+- lifting state up: 共通の親にstateを上げる
+- 単方向データフロー
+
+父の言葉:
+「どの部品が何を覚えるかを決めるのが、Reactの設計の第一歩。」
+
+#### 4. Hooks
+Reactの機能を使うための道具群。
+
+- useState: 値を覚える
+- useEffect: Reactの外側と同期する
+- useRef: 表示に直接関係しない値やDOM参照を持つ
+- useMemo / useCallback: 必要になってから使う最適化
+- custom hooks: ロジックに名前を付けて再利用する
+- hooksのルール
+
+父の言葉:
+「Hooksは魔法ではなく、Reactの機能を部品の中で使うための入口。」
+
+#### 5. UIパターン
+実際の画面で頻出する作り方。
+
+- フォーム
+- モーダル
+- タブ
+- アコーディオン
+- 検索・絞り込み
+- ページネーション
+- ローディング表示
+- エラー表示
+- 空の状態
+- 楽観的UI
+
+父の言葉:
+「Reactを覚えるだけでは足りない。よくある画面の型を知ると、作れるものが増える。」
+
+#### 6. データ取得とサーバーとの関係
+React単体からアプリ開発へ進む領域。
+
+- fetch
+- loading / error / success
+- APIレスポンスの型
+- キャッシュ
+- 再取得
+- Server Component / Client Component
+- Server Actions
+- 認証とセッション
+
+父の言葉:
+「画面だけならReact。データやURLやサーバーまで含めるとNext.jsの出番が増える。」
+
+#### 7. Next.js
+Reactを実際のWebアプリとして公開するための土台。
+
+- App Router
+- page / layout
+- dynamic route
+- Server Component
+- Client Component
+- metadata
+- image optimization
+- route handler
+- deploy
+
+父の言葉:
+「Reactは部品を作る道具。Next.jsはその部品をWebサイトやアプリとして並べる土台。」
+
+#### 8. コンポーネント設計
+規模が大きくなったときに必要になる整理術。
+
+- presentational / container の分離
+- props設計
+- children
+- composition
+- 状態を持つ部品と持たない部品
+- 再利用しやすい粒度
+- ディレクトリ構成
+- design system
+- Storybook
+
+父の言葉:
+「分ければよいのではなく、名前を付けると理解しやすくなる単位で分ける。」
+
+#### 9. 品質
+公開して続けるための知識。
+
+- TypeScriptで壊れにくくする
+- ESLint / formatter
+- unit test
+- component test
+- E2E test
+- accessibility
+- performance
+- SEO
+- error boundary
+- monitoring
+
+父の言葉:
+「動いた、で終わりにしない。あとから直せる形で残す。」
+
+#### 10. Reactの発展領域
+基礎が固まったあとに扱う。
+
+- Context
+- reducer
+- state management library
+- suspense
+- streaming
+- concurrent rendering
+- animation
+- form library
+- data fetching library
+- React Compilerなどの新しい流れ
+
+父の言葉:
+「便利な道具は、困りごとが見えてから使う。最初から全部背負わない。」
+
+### Learning Lanes（記事群の分類）
+
+React記事は、以下のレーンに分けて企画する。
+
+- 必修A: Web / JavaScriptの前提
+- 必修B: Reactの中心概念
+- 必修C: state設計とデータの流れ
+- 実践A: UIパターン
+- 実践B: データ取得とNext.js
+- 実践C: コンポーネント設計
+- 発展A: 品質、テスト、アクセシビリティ
+- 発展B: パフォーマンス、Hooks応用、状態管理
+
+### Dependency Rules
+
+- JSXより前に、JavaScriptの式と値を説明する
+- propsより前に、コンポーネントを説明する
+- stateより前に、renderの考え方を説明する
+- useEffectより前に、stateと再描画を説明する
+- Contextより前に、props drillingを説明する
+- useMemo / useCallbackより前に、通常の再描画を説明する
+- Next.jsより前に、ReactとWebアプリの役割の違いを説明する
+- テストより前に、コンポーネントの入出力を説明する
+
 ### Goal
 - 読者がReact用語を暗記する前に、画面・値・コンポーネントの関係を直感的に掴めること
 - 父が娘に説明できるくらい、言葉を短く、例を具体的にすること
