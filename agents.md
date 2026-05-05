@@ -285,6 +285,11 @@ Reactを実際のWebアプリとして公開するための土台。
 - ディレクトリ構成
 - design system
 - Storybook
+- UIライブラリの選定と比較
+- Atomic Design
+- compound component
+- headless UI
+- design token
 
 父の言葉:
 「分ければよいのではなく、名前を付けると理解しやすくなる単位で分ける。」
@@ -297,6 +302,10 @@ Reactを実際のWebアプリとして公開するための土台。
 - unit test
 - component test
 - E2E test
+- Storybookを使った状態確認
+- Storybook test-runner
+- visual regression testing
+- Storyshotsの歴史と非推奨化
 - accessibility
 - performance
 - SEO
@@ -336,6 +345,48 @@ React記事は、以下のレーンに分けて企画する。
 - 発展A: 品質、テスト、アクセシビリティ
 - 発展B: パフォーマンス、Hooks応用、状態管理
 
+### Practical Design System Topics
+
+React入門の後半では、コンポーネントを「作る」だけでなく、
+「整理する」「共有する」「壊れていないか確認する」話も扱う。
+
+#### Storybook
+- コンポーネントをページから切り離して確認する道具として説明する
+- Button、Card、Modal、Formなどを状態別に並べて見せる
+- loading、error、empty、disabled、hover相当など、実運用で見落としやすい状態を確認する
+- 記事では、Storybookそのものの操作画面より「なぜ部品単位で見ると理解しやすいか」を重視する
+
+父の言葉:
+「部品だけを机の上に出して、いろんな状態を見比べるための作業台。」
+
+#### UIライブラリ比較
+- shadcn/ui、MUI、Chakra UI、Radix UI、Headless UI、Tailwind CSSのみの実装などを比較対象にする
+- 比較軸は、見た目の完成度、カスタマイズ性、アクセシビリティ、学習コスト、依存の重さ、デザインの自由度
+- 初心者向けには「何を選べば正解か」より「どんな trade-off があるか」を説明する
+- このブログでは、Reactの理解を優先する記事ではUIライブラリに頼りすぎない
+- 実践記事では、UIライブラリを使うことで何が省け、何を理解しておくべきかを示す
+
+父の言葉:
+「家具を自作するか、既製品を買うか。どちらも悪くないが、仕組みを知らないと直せない。」
+
+#### Atomic Design
+- atoms / molecules / organisms / templates / pages を、Reactコンポーネント分割の考え方として紹介する
+- ただし、すべてをAtomic Designに無理に当てはめない
+- 小さなブログや学習用コードでは、過剰設計になりやすい点も説明する
+- 記事では、Button、Input、SearchForm、ArticleCard、ArticleListのような具体例で見せる
+
+父の言葉:
+「部品を小さく分ける考え方。ただし、ネジ1本まで名前を付けると片付けが大変。」
+
+#### Storyshots / Snapshot Testing
+- Storyshotsは、Storybookの各Storyをスナップショットテストする考え方として紹介できる
+- ただし、現在のStorybookではStoryshotsは非推奨・メンテナンス終了扱いとして説明する
+- 現代的な選択肢として、Storybook test-runner、Portable Stories、visual regression testingを紹介する
+- Snapshotは「差分に気づく」には便利だが、「正しいUIか」を自動で判断するものではないと説明する
+
+父の言葉:
+「前に撮った写真と今の写真を見比べる仕組み。違いは見つかるが、どちらが良いかは人間が見る。」
+
 ### Dependency Rules
 
 - JSXより前に、JavaScriptの式と値を説明する
@@ -346,6 +397,10 @@ React記事は、以下のレーンに分けて企画する。
 - useMemo / useCallbackより前に、通常の再描画を説明する
 - Next.jsより前に、ReactとWebアプリの役割の違いを説明する
 - テストより前に、コンポーネントの入出力を説明する
+- Storybookより前に、コンポーネントのpropsと状態を説明する
+- Atomic Designより前に、コンポーネント分割の基本を説明する
+- UIライブラリ比較より前に、HTML要素、props、アクセシビリティの基礎を説明する
+- Storyshotsより前に、snapshot testingとStorybookの役割を説明する
 
 ### Goal
 - 読者がReact用語を暗記する前に、画面・値・コンポーネントの関係を直感的に掴めること
