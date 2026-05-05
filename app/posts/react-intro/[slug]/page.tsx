@@ -2,11 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CodeBlock } from "@/components/code/code-block";
 import { MangaImage } from "@/components/manga/manga-image";
-import { EffectDemo } from "@/components/react-intro/effect-demo";
-import { ListDemo } from "@/components/react-intro/list-demo";
-import { NameFormDemo } from "@/components/react-intro/name-form-demo";
-import { ProfileCardDemo } from "@/components/react-intro/profile-card-demo";
-import { ReactionButtonDemo } from "@/components/react-intro/reaction-button-demo";
+import { ReactPlayground } from "@/components/react-intro/react-playground";
 import { getReactIntroArticle, reactIntroArticles } from "@/lib/react-intro-series";
 
 type PageProps = {
@@ -90,6 +86,17 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
             <p className="mt-4 text-lg leading-9 text-slate-300">{article.conclusion}</p>
           </section>
 
+          {article.demo ? (
+            <section className="mt-12 space-y-5">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">try first</p>
+                <h2 className="mt-3 text-2xl font-bold text-white">まず触ってみる</h2>
+              </div>
+              <p className="text-base leading-8 text-slate-300">{article.lesson}</p>
+              <ReactPlayground kind={article.demo} />
+            </section>
+          ) : null}
+
           {article.sections.map((section) => (
             <section className="mt-12 space-y-5" key={section.title}>
               <h2 className="text-2xl font-bold text-white">{section.title}</h2>
@@ -101,14 +108,6 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
               {section.code ? <CodeBlock code={section.code.value} filename={section.code.filename} /> : null}
             </section>
           ))}
-
-          {article.demo ? (
-            <section className="mt-12 space-y-5">
-              <h2 className="text-2xl font-bold text-white">小さく動かしてみる</h2>
-              <p className="text-base leading-8 text-slate-300">{article.lesson}</p>
-              <Demo name={article.demo} />
-            </section>
-          ) : null}
 
           <div className="mt-12">
             {/*
@@ -143,24 +142,4 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
       </div>
     </main>
   );
-}
-
-function Demo({ name }: { name: NonNullable<(typeof reactIntroArticles)[number]["demo"]> }) {
-  if (name === "effect") {
-    return <EffectDemo />;
-  }
-
-  if (name === "form") {
-    return <NameFormDemo />;
-  }
-
-  if (name === "list") {
-    return <ListDemo />;
-  }
-
-  if (name === "profile") {
-    return <ProfileCardDemo />;
-  }
-
-  return <ReactionButtonDemo />;
 }
