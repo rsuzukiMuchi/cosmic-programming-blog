@@ -90,7 +90,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
           <section className="mt-12 space-y-5">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">reader guide</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">読み方</p>
               <h2 className="mt-3 text-2xl font-bold text-white">この章の読み方</h2>
             </div>
             <div className="grid gap-3">
@@ -102,7 +102,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
           <section className="mt-12 space-y-5">
             <div className="rounded-lg border border-comet/30 bg-sky-400/10 p-5">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">before reading</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">読む前の地図</p>
               <h2 className="mt-3 text-2xl font-bold text-white">まず、この地図だけ持って読む</h2>
               <p className="mt-4 text-base leading-8 text-slate-300">{article.lesson}</p>
             </div>
@@ -122,7 +122,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           </section>
 
           <section className="mt-12 rounded-lg border border-white/10 bg-white/[0.04] p-5">
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">plain words</p>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">用語の言い換え</p>
             <h2 className="mt-3 text-2xl font-bold text-white">用語を父の言葉に直す</h2>
             <dl className="mt-4 grid gap-3">
               {article.vocabulary.map((word) => (
@@ -136,7 +136,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
           <section className="mt-12 grid gap-4">
             <div className="rounded-lg border border-white/10 bg-slate-950/70 p-5">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">today's goal</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-comet">到達目標</p>
               <h2 className="mt-3 text-2xl font-bold text-white">今日できるようになること</h2>
               <ul className="mt-4 grid gap-2">
                 {article.goals.map((goal) => (
@@ -147,7 +147,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
               </ul>
             </div>
             <div className="rounded-lg border border-coral/30 bg-rose-400/10 p-5">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">interactive types</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">操作教材</p>
               <h2 className="mt-3 text-2xl font-bold text-white">操作できる教材</h2>
               <p className="mt-3 text-base leading-8 text-slate-300">{article.demoTypes.join(" / ")}</p>
             </div>
@@ -156,7 +156,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           {article.demo ? (
             <section className="mt-12 space-y-5">
               <div>
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">watch the change</p>
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-coral">画面で確認</p>
                 <h2 className="mt-3 text-2xl font-bold text-white">画面の変化を見る</h2>
               </div>
               <p className="text-base leading-8 text-slate-300">{article.lesson}</p>
@@ -177,7 +177,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           ))}
 
           <section className="mt-12 rounded-lg border border-orbit/30 bg-yellow-300/10 p-5">
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orbit">chapter summary</p>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orbit">まとめ</p>
             <h2 className="mt-3 text-2xl font-bold text-white">この章のまとめ</h2>
             <p className="mt-4 text-base leading-8 text-slate-300">{article.conclusion}</p>
           </section>
@@ -194,18 +194,25 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
           </section>
 
           <section className="mt-12 space-y-5">
-            <h2 className="text-2xl font-bold text-white">小さな練習問題</h2>
-            <ol className="grid list-decimal gap-3 pl-5">
+            <h2 className="text-2xl font-bold text-white">練習問題</h2>
+            <p className="text-base leading-8 text-slate-300">
+              まず自分で答えてから、解答例を開いて確認してください。完全一致でなくても、考え方が合っていれば十分です。
+            </p>
+            <ol className="grid list-decimal gap-4 pl-5">
               {article.exercises.map((exercise) => (
-                <li className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-3 text-base leading-8 text-slate-300" key={exercise}>
-                  {exercise}
+                <li className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-4 text-base leading-8 text-slate-300" key={exercise.question}>
+                  <p>{exercise.question}</p>
+                  <details className="mt-3 rounded-md border border-comet/20 bg-sky-400/10 p-3">
+                    <summary className="cursor-pointer font-bold text-comet">解答例を見る</summary>
+                    <p className="mt-3 leading-8 text-slate-200">{exercise.answer}</p>
+                  </details>
                 </li>
               ))}
             </ol>
           </section>
 
           <section className="mt-12 border-y border-white/10 py-6">
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">official docs connection</p>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-slate-500">公式とのつながり</p>
             <h2 className="mt-3 text-2xl font-bold text-white">React公式ではどこにあたるか</h2>
             <p className="mt-4 text-base leading-8 text-slate-300">{article.official}</p>
             <a className="mt-5 inline-flex rounded-md border border-white/15 px-4 py-3 font-bold text-white transition hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-comet" href="https://ja.react.dev/learn">

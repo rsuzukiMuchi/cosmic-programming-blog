@@ -19,7 +19,10 @@ export type ReactIntroArticle = {
   conclusion: string;
   demo?: ReactIntroDemoKind;
   demoTypes: string[];
-  exercises: string[];
+  exercises: Array<{
+    answer: string;
+    question: string;
+  }>;
   goals: string[];
   intro: string;
   lane: ReactIntroLaneId;
@@ -126,7 +129,16 @@ export const reactIntroArticles: ReactIntroArticle[] = [
     ],
     manga: commonManga,
     pitfalls: ["Reactだけ覚えればWebが全部分かると思う: ReactはUIを作る道具で、ブラウザの土台の上にあります。", "DOMを最初から細かく覚えようとする: まずは画面の実体という感覚で十分です。"],
-    exercises: ["よく見るページからHTMLの役割、CSSの役割、JavaScriptの役割を1つずつ探す", "クリック、入力、送信のうち、今日見たイベントを3つ書く"],
+    exercises: [
+      {
+        question: "普段見ているWebページを1つ選び、HTML、CSS、JavaScriptがそれぞれ何を担当していそうか書いてください。",
+        answer: "例: HTMLは見出しやボタンなどの構造、CSSは色や余白などの見た目、JavaScriptはメニューを開く、検索する、入力に反応するなどの動きを担当しています。",
+      },
+      {
+        question: "クリック、入力、送信のうち、イベントと呼べるものを3つ挙げてください。",
+        answer: "クリック、入力、送信はいずれもイベントです。Reactでは onClick、onChange、onSubmit のような名前で受け取ります。",
+      },
+    ],
     official: "React公式Learnに入る前の前提です。公式のイベントやstateの章を読む準備になります。",
     next: "javascript-values-and-jsx",
     sections: [
@@ -188,14 +200,14 @@ button?.addEventListener("click", () => {
     slug: "javascript-values-and-jsx",
     order: 2,
     lane: "required-a",
-    title: "JSXの前に、JavaScriptの値を見る",
-    intro: "JSXの波かっこには何を入れられるの？ Reactでつまずく前に、文字、数字、配列、条件式を画面の材料として見ます。",
-    conclusion: "JSXの中に入るのは、画面に出せるJavaScriptの値です。変数、計算結果、条件式、配列の変換を先に見ておくとReactが読みやすくなります。",
-    lesson: "名前や数値を編集し、波かっこの中の値が表示に変わる様子を見ます。",
+    title: "React前に押さえるJavaScript基本文法",
+    intro: "Reactのコードを読もうとした時、実はReactではなくJavaScriptで止まっていることがあります。変数、関数、配列、オブジェクト、import/exportを先に整理します。",
+    conclusion: "ReactのコードはJavaScriptの上にあります。変数、関数、配列、オブジェクト、条件式、import/exportが読めると、JSXやprops、stateもかなり理解しやすくなります。",
+    lesson: "名前や数値を編集し、JavaScriptの値がJSXの表示に変わる様子を見ます。",
     readerGuide: {
-      beginner: "JSXをHTMLの暗記として見ず、JavaScriptの値を画面に差し込む書き方として見ます。波かっこは値を入れる窓です。",
-      intermediate: "中級者は、JSXがテンプレート文字列ではなくReact要素を表す構文である点、式と文の違い、配列変換との相性を押さえます。",
-      handsOn: "名前と数値を編集し、同じJSXから表示が変わることを確認します。値が変わる場所と表示される場所を対応させます。",
+      beginner: "まず、Reactの前にJavaScriptの値を見ます。文字、数字、配列、オブジェクトが画面の材料になることを掴みます。",
+      intermediate: "中級者は、関数、分割代入、map、import/export、式と文の違いを、Reactコンポーネントの読み方につなげます。",
+      handsOn: "名前と数値を編集し、同じJSXから表示が変わることを確認します。JavaScriptの値が画面に出る場所を対応させます。",
     },
     demo: "jsx",
     demoTypes: ["入力欄", "値プレビュー", "コードハイライト"],
@@ -208,15 +220,29 @@ button?.addEventListener("click", () => {
     ],
     manga: commonManga,
     pitfalls: ["if文をJSXの波かっこの中にそのまま書こうとする: 波かっこには値になる式を入れます。", "JavaScriptの基礎不足をReactの難しさだと思う: 半分はJavaScriptで迷っているだけのことがあります。"],
-    exercises: ["const name = '娘' を '父' に変えると表示がどう変わるか説明する", "count + 1 の結果を画面に出すJSXを書く"],
+    exercises: [
+      {
+        question: "const name = '娘' を const name = '父' に変えると、<p>こんにちは、{name}さん。</p> の表示はどう変わりますか？",
+        answer: "「こんにちは、娘さん。」から「こんにちは、父さん。」に変わります。JSXの {name} には変数nameの中身が入るためです。",
+      },
+      {
+        question: "countが3のとき、count + 1 の結果を画面に出すJSXを書いてください。",
+        answer: "例: <p>{count + 1}</p> と書きます。countが3なら、画面には4と表示されます。",
+      },
+      {
+        question: "配列 const topics = ['JSX', 'props', 'state'] を <li> に変えるコードを書いてください。",
+        answer: "例: {topics.map((topic) => <li key={topic}>{topic}</li>)} と書きます。mapで配列の1件ずつをJSXに変えます。",
+      },
+    ],
     official: "React公式Learnの「波括弧を使ってJSX内でJavaScriptを使う」を読む前の土台です。",
     next: "components-and-props",
     sections: [
       {
-        title: "Reactの画面は値から作る",
+        title: "変数は画面の材料になる",
         body: [
-          "Reactでは、画面に直接文字を書き込むより、値を用意して、その値をJSXに差し込みます。nameが変われば、同じJSXでも違う表示になります。",
-          "これは小さな違いに見えます。でも、入力欄、検索結果、ログイン状態など、変わるものが増えるほど大事になります。",
+          "Reactでは、画面に直接文字を書き込むより、まず値を用意し、その値をJSXに差し込みます。nameが変われば、同じJSXでも違う表示になります。",
+          "これは小さな違いに見えます。でも、入力欄、検索結果、ログイン状態など、変わるものが増えるほど大事になります。画面を直接直すのではなく、画面の材料を変えるからです。",
+          "初心者は、const name = '娘' のような変数が、画面に表示される材料になると見れば十分です。中級者は、その値がpropsやstateとしてどこから来るのかまで追います。",
         ],
         code: {
           filename: "Greeting.tsx",
@@ -224,6 +250,83 @@ button?.addEventListener("click", () => {
 
 export function Greeting() {
   return <p>こんにちは、{name}さん。</p>;
+}`,
+        },
+      },
+      {
+        title: "関数は部品の動きに名前を付ける",
+        body: [
+          "Reactでは関数が何度も出てきます。コンポーネントも関数ですし、クリックされた時に呼ぶ処理も関数です。関数は、まとまった処理に名前を付けるための道具です。",
+          "たとえばhandleClickという関数名を見ると、クリック時の処理だと分かります。handleChangeなら入力が変わった時の処理です。Reactでは、このようにイベントに渡す関数がよく出てきます。",
+          "中級者は、関数をその場で書くのか、名前を付けて外に出すのかも見ます。処理が短ければその場でよく、長くなったら名前を付けると読みやすくなります。",
+        ],
+        code: {
+          filename: "イベント関数の基本",
+          value: `function handleClick() {
+  console.log("クリックされました");
+}
+
+return <button onClick={handleClick}>押す</button>;`,
+        },
+      },
+      {
+        title: "配列は一覧表示の材料になる",
+        body: [
+          "記事一覧、コメント一覧、検索結果、メニュー。Web画面には同じ形を繰り返す場所がたくさんあります。Reactでは、配列をmapでJSXに変換して一覧を作ります。",
+          "mapは、配列の1件ずつを別の形に変える道具です。文字列の配列をliの配列に変える。記事データの配列をArticleCardの配列に変える。これがリスト表示の基本です。",
+          "ここでkeyも出てきます。keyはReactが項目を見分ける名札です。詳しくはリストの章で扱いますが、mapとkeyはセットで何度も出てくるので、早めに形に慣れておきます。",
+        ],
+        code: {
+          filename: "配列を一覧表示にする",
+          value: `const topics = ["JSX", "props", "state"];
+
+return (
+  <ul>
+    {topics.map((topic) => (
+      <li key={topic}>{topic}</li>
+    ))}
+  </ul>
+);`,
+        },
+      },
+      {
+        title: "オブジェクトはまとまったデータを表す",
+        body: [
+          "Reactでは、1つの値だけでなく、まとまったデータを扱うことが多いです。記事ならtitle、slug、descriptionを持つ。ユーザーならname、email、roleを持つ。こうしたまとまりはオブジェクトで表します。",
+          "オブジェクトの値は、user.name のようにドットで取り出します。propsとして渡す時にも、オブジェクトの形を知っていると読みやすくなります。",
+          "TypeScriptを使うと、このオブジェクトの形に名前を付けられます。中級者は、APIから返ってくるデータの形をtypeで表すところまで見ると、ReactとTypeScriptがつながります。",
+        ],
+        code: {
+          filename: "オブジェクトと型",
+          value: `type Article = {
+  title: string;
+  slug: string;
+};
+
+const article: Article = {
+  title: "React入門",
+  slug: "react-intro",
+};
+
+return <h1>{article.title}</h1>;`,
+        },
+      },
+      {
+        title: "分割代入はpropsを読む時によく出る",
+        body: [
+          "Reactのコードでは、function ProfileCard({ name, job }) のような書き方がよく出ます。これは分割代入です。propsというオブジェクトから、nameとjobだけを取り出しています。",
+          "最初は少し見慣れませんが、props.name、props.jobと毎回書く代わりに、必要な値を先に取り出しているだけです。",
+          "この書き方に慣れると、Reactのサンプルコードが読みやすくなります。公式ドキュメントやUIライブラリのコードにも頻繁に出てきます。",
+        ],
+        code: {
+          filename: "propsの分割代入",
+          value: `type ProfileCardProps = {
+  name: string;
+  job: string;
+};
+
+function ProfileCard({ name, job }: ProfileCardProps) {
+  return <p>{name}: {job}</p>;
 }`,
         },
       },
@@ -260,13 +363,35 @@ return (
           "この理解があると、なぜreturnで1つの親要素が必要なのか、なぜmapの中でkeyが必要なのか、なぜ条件分岐の書き方がHTMLと違うのかがつながります。",
         ],
       },
+      {
+        title: "import / export は部品をファイル間で受け渡す仕組み",
+        body: [
+          "Reactでは、コンポーネントを別ファイルに分けて使います。その時に出てくるのがexportとimportです。作った部品をexportし、使う側でimportします。",
+          "初心者は、exportは外へ出す、importは受け取る、と覚えると十分です。中級者は、default exportとnamed exportの違い、相対パス、indexファイルでまとめる設計まで見ると、プロジェクトが大きくなっても迷いにくくなります。",
+          "最初のうちは、1ファイルに全部書いても構いません。ただ、コンポーネントが増えたら、意味のある単位でファイルを分けます。ここでも大事なのは、名前を付けると読みやすいかです。",
+        ],
+        code: {
+          filename: "import / export",
+          value: `// components/ProfileCard.tsx
+export function ProfileCard() {
+  return <article>プロフィール</article>;
+}
+
+// app/page.tsx
+import { ProfileCard } from "@/components/ProfileCard";
+
+export default function Page() {
+  return <ProfileCard />;
+}`,
+        },
+      },
     ],
   },
   {
     slug: "components-and-props",
     order: 3,
     lane: "required-b",
-    title: "componentとprops: 同じ部品に違う材料を渡す",
+    title: "コンポーネントとprops: 同じ部品に違う材料を渡す",
     intro: "同じ見た目のカードを何度も使うには？ コンポーネントを画面の部品として作り、propsで中身を変えます。",
     conclusion: "コンポーネントは画面の部品、propsは親から渡す材料です。同じ部品でも、材料を変えれば違う表示になります。",
     lesson: "親側の値を変えると、同じProfileCardの表示が変わる様子を見ます。",
@@ -286,7 +411,20 @@ return (
     ],
     manga: commonManga,
     pitfalls: ["propsを子側で書き換えようとする: propsは受け取った材料として扱います。", "何でもpropsに詰める: 部品の役割が大きくなりすぎた合図かもしれません。"],
-    exercises: ["Buttonにlabelを渡して表示を変える", "ProfileCardを父用と娘用の2回表示する", "propsの型をtypeで書いてみる"],
+    exercises: [
+      {
+        question: "Buttonコンポーネントに label='保存' を渡し、ボタン内に表示するコードを書いてください。",
+        answer: "例: function Button({ label }: { label: string }) { return <button>{label}</button>; } と書き、<Button label='保存' /> のように使います。",
+      },
+      {
+        question: "ProfileCardを娘用と父用の2回表示するには、propsをどう変えますか？",
+        answer: "例: <ProfileCard name='娘' job='なんで？係' /> と <ProfileCard name='父' job='説明係' /> のように、同じ部品に違うpropsを渡します。",
+      },
+      {
+        question: "ProfileCardのprops型をTypeScriptで書いてください。nameとjobはどちらも文字列です。",
+        answer: "例: type ProfileCardProps = { name: string; job: string; }; と書きます。",
+      },
+    ],
     official: "公式Learnの「最初のコンポーネント」「コンポーネントにpropsを渡す」に対応します。",
     next: "render-state-and-events",
     sections: [
@@ -351,7 +489,7 @@ function Button({ children, onClick, variant = "primary" }: ButtonProps) {
     slug: "render-state-and-events",
     order: 4,
     lane: "required-b",
-    title: "stateとevent: 値が変わると画面が変わる",
+    title: "stateとイベント: 値が変わると画面が変わる",
     intro: "ボタンを押した回数を、Reactはどう覚えるの？ eventをきっかけにstateが変わり、再描画で画面が変わります。",
     conclusion: "stateは部品自身が覚える変化する値です。eventでsetStateを呼ぶと、Reactが新しい値から画面を作り直します。",
     lesson: "カウンターを押して、きっかけ、値、再描画、画面の4段階を追います。",
@@ -371,7 +509,20 @@ function Button({ children, onClick, variant = "primary" }: ButtonProps) {
     ],
     manga: commonManga,
     pitfalls: ["count = count + 1 と直接書く: Reactに更新が伝わりません。", "再描画を怖がりすぎる: 入門ではReactの普通の動きとして受け止めます。"],
-    exercises: ["初期値を5にしたら最初の表示がどうなるか考える", "減らすボタンとリセットボタンを追加する設計を書く", "stateとpropsになりそうな値を分ける"],
+    exercises: [
+      {
+        question: "const [count, setCount] = useState(5) にすると、最初の表示はどうなりますか？",
+        answer: "countの初期値が5なので、最初から「5回押した」のように表示されます。",
+      },
+      {
+        question: "countを1減らすボタンのonClickを書いてください。",
+        answer: "例: onClick={() => setCount((current) => current - 1)} と書きます。前の値currentを受け取り、1減らした値を返します。",
+      },
+      {
+        question: "ボタンのlabelと、押した回数countは、それぞれpropsとstateのどちらに向いていますか？",
+        answer: "labelは親から渡して変えることが多いのでprops向きです。countはボタンを押すたびに部品自身が覚える値なのでstate向きです。",
+      },
+    ],
     official: "公式Learnの「State: コンポーネントのメモリ」「イベントへの応答」「レンダーとコミット」に対応します。",
     next: "forms-and-controlled-components",
     sections: [
@@ -427,7 +578,7 @@ setCount((current) => current + 1);
     slug: "forms-and-controlled-components",
     order: 5,
     lane: "required-c",
-    title: "form: 入力欄とstateをつなぐ",
+    title: "フォーム: 入力欄とstateをつなぐ",
     intro: "入力した名前を、別の場所にもすぐ表示するには？ 入力欄のvalueとstateをつなぐと、画面全体で同じ値を使えます。",
     conclusion: "controlled componentは、入力欄の値をReactのstateで管理する作り方です。入力とプレビューが同じ値を見るようになります。",
     lesson: "入力欄に文字を入れ、state、プレビュー、イベントログが同時に変わる様子を見ます。",
@@ -447,7 +598,20 @@ setCount((current) => current + 1);
     ],
     manga: commonManga,
     pitfalls: ["valueだけを書いてonChangeを書かない: 入力できない欄になります。", "入力欄ごとに値の置き場所が散らばる: どの部品が覚えるかを先に決めます。"],
-    exercises: ["空文字なら「名前なし」と表示する", "入力値を見出しと本文の2か所に出す", "送信時に何をstateから読むか説明する"],
+    exercises: [
+      {
+        question: "nameが空文字なら「名前なし」と表示するJSXを書いてください。",
+        answer: "例: <p>{name || '名前なし'}</p> と書きます。nameが空文字なら右側の文字が使われます。",
+      },
+      {
+        question: "入力値nameを見出しと本文の2か所に表示してください。",
+        answer: "例: <h2>{name}</h2><p>こんにちは、{name}さん。</p> のように、同じstateを複数箇所で使います。",
+      },
+      {
+        question: "フォーム送信時に読むべき値は、DOMのinputから探すべきですか？ stateから読むべきですか？",
+        answer: "controlled componentとして作っているなら、stateのnameから読みます。入力欄のvalueとstateが同期しているためです。",
+      },
+    ],
     official: "公式Learnの「stateを用いて入力に反応する」「state構造の選択」に対応します。",
     next: "conditional-and-list-rendering",
     sections: [
@@ -504,7 +668,7 @@ return (
     slug: "conditional-and-list-rendering",
     order: 6,
     lane: "required-c",
-    title: "conditionalとlist: 条件と配列から画面を作る",
+    title: "条件分岐とリスト: 条件と配列から画面を作る",
     intro: "データが空の時、読み込み中の時、項目が増えた時、Reactではどう表示を変えるの？ 条件と配列を画面に変えます。",
     conclusion: "条件付きレンダーは今の状態に合う表示を選び、list renderingは配列をmapで複数の表示に変えます。",
     lesson: "トグルで表示を切り替え、配列に項目を追加して、画面が増える様子を見ます。",
@@ -524,7 +688,20 @@ return (
     ],
     manga: commonManga,
     pitfalls: ["keyを書かない: Reactがどの項目か見分けにくくなります。", "三項演算子を深く重ねる: 読みにくい時はifで分けます。"],
-    exercises: ["items.lengthが0なら空メッセージを表示する", "topics配列に1件追加した時にliが何個になるか数える", "keyに使える値を考える"],
+    exercises: [
+      {
+        question: "items.lengthが0なら「まだ項目がありません」と表示するJSXを書いてください。",
+        answer: "例: {items.length === 0 ? <p>まだ項目がありません</p> : <ItemList items={items} />} と書きます。",
+      },
+      {
+        question: "topicsが['component', 'props', 'state'] のとき、mapで作られるliは何個ですか？",
+        answer: "3個です。配列の要素が3件あるので、mapで3つのliが作られます。",
+      },
+      {
+        question: "記事一覧のkeyには、indexとarticle.idのどちらが向いていますか？理由も書いてください。",
+        answer: "article.idが向いています。削除や並び替えがあっても、同じ記事を安定して見分けられるためです。",
+      },
+    ],
     official: "公式Learnの「条件付きレンダー」「リストのレンダー」に対応します。",
     next: "use-effect-and-fetch",
     sections: [
@@ -620,7 +797,16 @@ return (
     ],
     manga: commonManga,
     pitfalls: ["表示用の計算までuseEffectに入れる: stateから計算できる値は普通の変数でよいことがあります。", "タイマーを片付けない: 画面を離れても処理が残る原因になります。"],
-    exercises: ["タイマーを止める処理がどこにあるか探す", "API取得のloading/error/successを3つの状態で考える"],
+    exercises: [
+      {
+        question: "setIntervalで始めたタイマーを止める処理は、useEffectのどこに書きますか？",
+        answer: "useEffectのreturnで返すcleanup関数に書きます。例: return () => clearInterval(timerId); です。",
+      },
+      {
+        question: "API取得画面で必要な3つの状態 loading / error / success を、それぞれどんな表示にするか書いてください。",
+        answer: "例: loadingは「読み込み中」、errorは「取得に失敗しました。再試行してください」、successは取得したデータ一覧を表示します。",
+      },
+    ],
     official: "公式Learnの「エフェクトと同期」「エフェクトは必要ないかもしれない」に対応します。",
     next: "ui-patterns",
     sections: [
@@ -691,7 +877,20 @@ return (
     ],
     manga: commonManga,
     pitfalls: ["成功時の画面だけ作る: 実際のアプリでは空、待ち、失敗も起きます。", "説明文で埋める: 操作結果で分かる画面にします。"],
-    exercises: ["検索結果が0件の表示を書く", "タブUIで必要なstateを考える", "送信中のボタン文言を考える"],
+    exercises: [
+      {
+        question: "検索結果が0件のとき、ユーザーに次の行動が伝わる文言を書いてください。",
+        answer: "例: 「該当する記事はありません。キーワードを変えて検索してみてください。」のように、次にできることを添えます。",
+      },
+      {
+        question: "タブUIで最低限必要なstate名を1つ考えてください。",
+        answer: "例: activeTabです。現在どのタブが選ばれているかを覚えるために使います。",
+      },
+      {
+        question: "送信中のボタン文言を通常時と送信中で分けてください。",
+        answer: "例: 通常時は「送信する」、送信中は「送信中...」です。送信中はdisabledにすると二重送信も防げます。",
+      },
+    ],
     official: "React公式の基礎を、実際のUIパターンへ応用する章です。",
     next: "nextjs-and-data",
     sections: [
@@ -757,7 +956,20 @@ return (
     ],
     manga: commonManga,
     pitfalls: ["全部にuse clientを書く: stateやeventが必要な場所に絞ります。", "データ取得と表示を一気に複雑にする: loading/error/successを先に分けます。"],
-    exercises: ["app/about/page.tsxがどのURLになるか考える", "useStateが必要な部品を見分ける", "APIレスポンスの型を言葉で書く"],
+    exercises: [
+      {
+        question: "Next.js App Routerで app/about/page.tsx はどのURLになりますか？",
+        answer: "/about になります。app配下のフォルダ構造がURLに対応します。",
+      },
+      {
+        question: "useStateが必要な部品は、Server ComponentとClient Componentのどちらにしますか？",
+        answer: "Client Componentにします。useStateやonClickのようなブラウザ上の操作には \"use client\" が必要です。",
+      },
+      {
+        question: "記事APIが返すデータの型を、titleとslugを持つ形で書いてください。",
+        answer: "例: type Article = { title: string; slug: string; }; と書きます。",
+      },
+    ],
     official: "Next.js App Router Docsのpage/layout、Server/Client Component、データ取得に対応します。",
     next: "component-design-atomic-ui-library",
     sections: [
@@ -826,7 +1038,16 @@ export function LikeButton() {
     ],
     manga: commonManga,
     pitfalls: ["ネジ1本まで名前を付ける: 小さなブログでは過剰設計になります。", "UIライブラリで仕組みを全部飛ばす: 何を省けて、何を理解すべきかを見ます。"],
-    exercises: ["Button、Input、SearchForm、ArticleCardをatoms/moleculesに分けてみる", "shadcn/ui、MUI、Tailwindのみの実装を比較軸で見る"],
+    exercises: [
+      {
+        question: "Button、Input、SearchForm、ArticleCardをAtomic Designで分類してください。",
+        answer: "一例として、ButtonとInputはatoms、SearchFormはmolecules、ArticleCardはmoleculesまたはorganisms寄りです。プロジェクトの粒度によって変わります。",
+      },
+      {
+        question: "MUIとTailwindのみの実装を、完成度と自由度の2軸で比べてください。",
+        answer: "MUIは完成度が高く早く作りやすい一方、見た目の自由度には制約があります。Tailwindのみは自由度が高い一方、状態やアクセシビリティを自分で設計する必要があります。",
+      },
+    ],
     official: "React公式のcompositionの考え方と、実践書で扱われるAtomic Design、UIライブラリ比較に対応します。",
     next: "storybook-and-visual-tests",
     sections: [
@@ -896,7 +1117,20 @@ pages:
     ],
     manga: commonManga,
     pitfalls: ["スナップショットが正しさを判断すると思う: 差分には気づけますが、良いUIかは人間が見ます。", "通常状態だけStoryにする: loading、error、empty、disabledも並べます。"],
-    exercises: ["ButtonのdisabledとloadingのStory名を考える", "Storyshotsの代わりに何を使うか説明する", "visual regressionで見つかる差分を1つ考える"],
+    exercises: [
+      {
+        question: "Buttonのdisabled状態とloading状態のStory名を考えてください。",
+        answer: "例: Disabled と Loading です。Story名は状態がすぐ分かる名前にします。",
+      },
+      {
+        question: "Storyshotsの代わりに、現在なら何を検討しますか？",
+        answer: "Storybook test-runner、Portable Stories、visual regression testing などを検討します。Storyshotsは現在では非推奨・メンテナンス終了扱いとして説明します。",
+      },
+      {
+        question: "visual regression testingで見つけやすい差分を1つ挙げてください。",
+        answer: "例: ボタンの色が変わった、余白が崩れた、テキストが折り返した、アイコン位置がずれた、といった見た目の差分です。",
+      },
+    ],
     official: "Storybook Docsのtest-runner、Portable Stories、visual testingの考え方につながります。",
     next: "custom-hooks-context-quality",
     sections: [
@@ -943,7 +1177,7 @@ export const Disabled = {
     slug: "custom-hooks-context-quality",
     order: 12,
     lane: "advanced-b",
-    title: "custom hookとContext: 困りごとが見えてから使う",
+    title: "カスタムHookとContext: 困りごとが見えてから使う",
     intro: "HooksやContextは最初から全部覚えるべき？ 便利な道具は、重複やprops drillingの困りごとが見えてから使います。",
     conclusion: "custom hookはロジックに名前を付けて再利用する道具、Contextは深いprops渡しを減らす道具です。必要になってから使います。",
     lesson: "useCounterを2つのUIで使い回し、Contextが必要な場面と不要な場面を見ます。",
@@ -963,7 +1197,20 @@ export const Disabled = {
     ],
     manga: commonManga,
     pitfalls: ["早すぎる抽象化: まず重複や困りごとが見えてから切り出します。", "何でもContextに入れる: 追いにくくなるので本当に共有したい値に絞ります。"],
-    exercises: ["useCounterが返す値と関数を考える", "テーマ色をContextに入れるべきか判断する", "useMemoを使う前に普通の再描画で困っているか確認する"],
+    exercises: [
+      {
+        question: "useCounterが返すと便利な値と関数を3つ挙げてください。",
+        answer: "例: count、increment、resetです。必要ならdecrementも返せます。",
+      },
+      {
+        question: "テーマ色を多くの部品で使う場合、Contextに入れるのは妥当ですか？",
+        answer: "妥当な場合があります。多くの階層で共通して読む値ならContextが向いています。ただし、何でもContextに入れると追いにくくなります。",
+      },
+      {
+        question: "useMemoを使う前に確認することは何ですか？",
+        answer: "本当に重い計算や不要な再計算で困っているかを確認します。困っていない段階で使うと、かえってコードが読みにくくなることがあります。",
+      },
+    ],
     official: "公式Learnの「カスタムHookでロジックを再利用する」「Contextで深く値を渡す」に対応します。",
     sections: [
       {
