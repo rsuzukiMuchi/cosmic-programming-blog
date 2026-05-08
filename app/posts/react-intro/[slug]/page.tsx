@@ -39,7 +39,7 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
 
   const lane = getReactIntroLane(article.lane);
   const nextArticle = article.next ? getReactIntroArticle(article.next) : undefined;
-  const readingMinutes = article.order <= 6 ? 22 : 18;
+  const readingMinutes = article.order <= 6 ? 30 : 22;
 
   return (
     <main className="min-h-screen bg-night text-ink">
@@ -153,6 +153,26 @@ export default async function ReactIntroArticlePage({ params }: PageProps) {
             </div>
           </section>
 
+          {article.textbook ? (
+            <section className="mt-12 space-y-5">
+              <div>
+                <p className="font-mono text-xs uppercase tracking-[0.16em] text-orbit">教科書パート</p>
+                <h2 className="mt-3 text-2xl font-bold text-white">この章で手を動かして理解する</h2>
+              </div>
+              <div className="rounded-lg border border-orbit/30 bg-yellow-300/10 p-5">
+                <h3 className="text-xl font-bold text-white">この章で作るもの</h3>
+                <p className="mt-3 text-base leading-8 text-slate-300">{article.textbook.build}</p>
+              </div>
+              <TextbookList title="基本文法・確認ポイント" items={article.textbook.syntax} />
+              <TextbookList title="コードを読む順番" items={article.textbook.codeReading} />
+              <TextbookList title="自分で改造してみる" items={article.textbook.tryThis} />
+              <div className="rounded-lg border border-comet/30 bg-sky-400/10 p-5">
+                <h3 className="text-xl font-bold text-white">次の章につながること</h3>
+                <p className="mt-3 text-base leading-8 text-slate-300">{article.textbook.next}</p>
+              </div>
+            </section>
+          ) : null}
+
           {article.demo ? (
             <section className="mt-12 space-y-5">
               <div>
@@ -249,6 +269,21 @@ function GuideCard({ label, value }: { label: string; value: string }) {
     <div className="rounded-lg border border-white/10 bg-slate-950/70 p-5">
       <h3 className="text-lg font-bold text-white">{label}</h3>
       <p className="mt-2 text-base leading-8 text-slate-300">{value}</p>
+    </div>
+  );
+}
+
+function TextbookList({ items, title }: { items: string[]; title: string }) {
+  return (
+    <div className="rounded-lg border border-white/10 bg-slate-950/70 p-5">
+      <h3 className="text-xl font-bold text-white">{title}</h3>
+      <ul className="mt-4 grid gap-3">
+        {items.map((item) => (
+          <li className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-3 text-base leading-8 text-slate-300" key={item}>
+            {item}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

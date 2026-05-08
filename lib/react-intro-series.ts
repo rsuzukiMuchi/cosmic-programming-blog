@@ -27,6 +27,13 @@ export type ReactIntroArticle = {
   intro: string;
   lane: ReactIntroLaneId;
   lesson: string;
+  textbook?: {
+    build: string;
+    codeReading: string[];
+    next: string;
+    syntax: string[];
+    tryThis: string[];
+  };
   readerGuide: {
     beginner: string;
     handsOn: string;
@@ -113,6 +120,26 @@ export const reactIntroArticles: ReactIntroArticle[] = [
     intro: "なんでボタンを押すと画面が変わるの？ Reactの前に、ブラウザ、HTML、CSS、JavaScriptの役割を小さくそろえます。",
     conclusion: "Reactはブラウザの上で動きます。だからまず、HTMLが構造、CSSが見た目、JavaScriptが動き、DOMが画面の実体だと見るのが近道です。",
     lesson: "ボタンを押すと、イベントが起き、値が変わり、画面に反映される流れを見ます。",
+    textbook: {
+      build: "ボタンを押すとイベントログが増え、画面の表示も変わる小さな教材を作ります。Reactに入る前に、ブラウザで何が起きているかを一度見える形にします。",
+      syntax: [
+        "HTMLは見出し、文章、ボタンなどの構造を担当します。まずは画面の骨組みとして見ます。",
+        "CSSは色、余白、文字サイズなどの見た目を担当します。Reactを学ぶ時もCSSの崩れとReactの問題を分けて考えます。",
+        "JavaScriptはクリックや入力に反応して値を変える担当です。Reactのイベントもこの延長にあります。",
+        "DOMはブラウザが持つ画面の実体です。Reactは最終的にDOMへ表示を反映します。",
+      ],
+      codeReading: [
+        "まず、どのHTML要素がユーザーに触られる場所なのかを見ます。今回ならbuttonです。",
+        "次に、クリックされた時に呼ばれる関数を見ます。ここがイベント処理の入口です。",
+        "最後に、値が変わったあと画面のどこへ表示されるかを確認します。",
+      ],
+      tryThis: [
+        "ボタンの表示文言を「押す」から「学習する」に変えてみる。",
+        "クリック回数だけでなく、最後に押した時刻も表示するならどんな値が必要か考える。",
+        "HTML、CSS、JavaScriptの役割を、自分がよく見るサイトで1つずつ探す。",
+      ],
+      next: "次章では、JavaScriptの値そのものを学びます。Reactの画面は、この値を材料にして作られるからです。",
+    },
     readerGuide: {
       beginner: "まずはHTML、CSS、JavaScript、DOMを暗記せずに役割で分けます。Reactはその上に乗る道具だと分かれば十分です。",
       intermediate: "中級者は、ReactがDOM操作を完全に消すのではなく、DOM更新の考え方を抽象化している点まで見ると後のrender理解につながります。",
@@ -204,6 +231,28 @@ button?.addEventListener("click", () => {
     intro: "Reactのコードを読もうとした時、実はReactではなくJavaScriptで止まっていることがあります。変数、関数、配列、オブジェクト、import/exportを先に整理します。",
     conclusion: "ReactのコードはJavaScriptの上にあります。変数、関数、配列、オブジェクト、条件式、import/exportが読めると、JSXやprops、stateもかなり理解しやすくなります。",
     lesson: "名前や数値を編集し、JavaScriptの値がJSXの表示に変わる様子を見ます。",
+    textbook: {
+      build: "名前、数値、配列、オブジェクトを用意し、それらをJSXに差し込んで表示する教材を作ります。Reactの前にJavaScriptの読み方を固めます。",
+      syntax: [
+        "constは再代入しない値に名前を付けるために使います。Reactのサンプルでは非常によく出ます。",
+        "関数は処理に名前を付ける道具です。コンポーネントもイベントハンドラも関数です。",
+        "配列は一覧表示の材料です。mapで1件ずつJSXに変換します。",
+        "オブジェクトはまとまったデータです。propsやAPIレスポンスを読む時に必ず出ます。",
+        "import/exportは、部品をファイル間で受け渡すために使います。",
+      ],
+      codeReading: [
+        "最初にconstで定義された値を見ます。画面に出る材料がどこにあるか確認します。",
+        "次にreturnの中のJSXを見ます。波かっこに入っている値を探します。",
+        "mapが出てきたら、配列の1件がどのJSXに変わるかを追います。",
+        "typeがある場合は、オブジェクトがどんな形を持つかを先に読みます。",
+      ],
+      tryThis: [
+        "nameを別の文字列に変えて、表示がどう変わるか確認する。",
+        "topics配列に新しい項目を追加して、liが増えることを確認する。",
+        "Article型にdescriptionを追加し、画面にも表示してみる。",
+      ],
+      next: "次章では、この値をコンポーネントへ渡します。JavaScriptのオブジェクトと分割代入がprops理解につながります。",
+    },
     readerGuide: {
       beginner: "まず、Reactの前にJavaScriptの値を見ます。文字、数字、配列、オブジェクトが画面の材料になることを掴みます。",
       intermediate: "中級者は、関数、分割代入、map、import/export、式と文の違いを、Reactコンポーネントの読み方につなげます。",
@@ -395,6 +444,27 @@ export default function Page() {
     intro: "同じ見た目のカードを何度も使うには？ コンポーネントを画面の部品として作り、propsで中身を変えます。",
     conclusion: "コンポーネントは画面の部品、propsは親から渡す材料です。同じ部品でも、材料を変えれば違う表示になります。",
     lesson: "親側の値を変えると、同じProfileCardの表示が変わる様子を見ます。",
+    textbook: {
+      build: "ProfileCardを1つ作り、娘用と父用の2回表示します。同じ部品に違うpropsを渡すことで、表示が変わることを確認します。",
+      syntax: [
+        "コンポーネントは大文字で始める関数として作ります。小文字だとHTMLタグとして扱われます。",
+        "propsは親から子へ渡される値です。子はpropsを材料にして表示を作ります。",
+        "TypeScriptではpropsの型を書くと、部品の使い方が読みやすくなります。",
+        "childrenを使うと、タグの間に書いた内容を部品の中へ渡せます。",
+      ],
+      codeReading: [
+        "まずProfileCardのprops型を見て、外から何を渡せる部品なのか確認します。",
+        "次に関数の引数を見て、propsをどう受け取っているか確認します。",
+        "returnの中で、propsの値がどこに表示されているかを追います。",
+        "最後に呼び出し側を見て、nameやjobに何を渡しているか確認します。",
+      ],
+      tryThis: [
+        "ProfileCardにfavoriteというpropsを追加して、好きなものを表示する。",
+        "父と娘に加えて、もう1つ別のカードを表示する。",
+        "jobを省略可能にしたら、型と表示をどう変えるか考える。",
+      ],
+      next: "次章では、外から渡すpropsではなく、部品自身が覚えるstateを扱います。",
+    },
     readerGuide: {
       beginner: "コンポーネントは画面の部品、propsは部品に渡す材料です。同じカードに別の名前を渡す、という感覚を先に掴みます。",
       intermediate: "中級者は、propsを部品の公開インターフェースとして見ます。何をpropsにし、何を内部に閉じるかが設計の入口です。",
@@ -493,6 +563,27 @@ function Button({ children, onClick, variant = "primary" }: ButtonProps) {
     intro: "ボタンを押した回数を、Reactはどう覚えるの？ eventをきっかけにstateが変わり、再描画で画面が変わります。",
     conclusion: "stateは部品自身が覚える変化する値です。eventでsetStateを呼ぶと、Reactが新しい値から画面を作り直します。",
     lesson: "カウンターを押して、きっかけ、値、再描画、画面の4段階を追います。",
+    textbook: {
+      build: "増やすボタン、減らすボタン、リセットボタンを持つカウンターを作ります。イベントでstateが変わり、画面が更新される流れを見ます。",
+      syntax: [
+        "useStateは、現在の値と更新関数をセットで返します。const [count, setCount] の形で受け取ります。",
+        "onClickには関数を渡します。onClick={handleClick} は関数を渡し、onClick={handleClick()} はその場で実行してしまいます。",
+        "前の値を使う更新では、setCount((current) => current + 1) の形を使うと安全です。",
+        "stateは直接代入しません。更新関数を使ってReactに知らせます。",
+      ],
+      codeReading: [
+        "最初にuseStateの初期値を見ます。画面が最初にどう表示されるか分かります。",
+        "次にボタンのonClickを見ます。どの操作でどの更新関数が呼ばれるか確認します。",
+        "更新関数の中で、前の値を使っているか、固定値を入れているかを見ます。",
+        "最後にJSXのどこでstateが表示されているかを確認します。",
+      ],
+      tryThis: [
+        "初期値を0から10に変える。",
+        "2ずつ増えるボタンを追加する。",
+        "countが0未満にならないように減らすボタンを修正する。",
+      ],
+      next: "次章では、入力欄の値をstateとして持ちます。クリックだけでなく、入力イベントも扱います。",
+    },
     readerGuide: {
       beginner: "stateは画面の記憶です。ボタンを押した回数のように、ユーザー操作で変わるものをReactに覚えてもらいます。",
       intermediate: "中級者は、直接代入ではなく更新関数を使う理由、前のstateを使う更新、再描画がどの単位で起きるかを見ます。",
@@ -582,6 +673,27 @@ setCount((current) => current + 1);
     intro: "入力した名前を、別の場所にもすぐ表示するには？ 入力欄のvalueとstateをつなぐと、画面全体で同じ値を使えます。",
     conclusion: "controlled componentは、入力欄の値をReactのstateで管理する作り方です。入力とプレビューが同じ値を見るようになります。",
     lesson: "入力欄に文字を入れ、state、プレビュー、イベントログが同時に変わる様子を見ます。",
+    textbook: {
+      build: "名前入力フォームを作り、入力した文字をプレビュー、文字数、送信ボタンの状態に反映します。入力欄とstateがつながる感覚を固めます。",
+      syntax: [
+        "inputのvalueにstateを渡すと、入力欄の表示値をReactが管理します。",
+        "onChangeでevent.target.valueを読み、setNameでstateを更新します。",
+        "空文字の場合の表示には、name || '名前なし' のような書き方が使えます。",
+        "送信時にはDOMから探すのではなく、stateに入っている値を読みます。",
+      ],
+      codeReading: [
+        "まずuseStateで入力値の置き場所を確認します。",
+        "次にinputのvalueとonChangeを見て、入力欄とstateがつながっているか確認します。",
+        "プレビュー部分で同じstateが使われている場所を探します。",
+        "送信ボタンやエラー表示がある場合、どのstateから判断しているかを見ます。",
+      ],
+      tryThis: [
+        "文字数を表示する。",
+        "空文字の時だけ送信ボタンをdisabledにする。",
+        "12文字を超えたら注意メッセージを表示する。",
+      ],
+      next: "次章では、入力値や配列の状態に応じて表示を切り替えます。条件分岐とリスト表示へ進みます。",
+    },
     readerGuide: {
       beginner: "入力欄もReactの画面の一部です。valueとonChangeをstateにつなぐと、入力した文字を別の場所にも出せます。",
       intermediate: "中級者は、入力欄をcontrolledにする利点と負担、バリデーション、送信中状態、フォームライブラリを使う判断につなげます。",
@@ -672,6 +784,27 @@ return (
     intro: "データが空の時、読み込み中の時、項目が増えた時、Reactではどう表示を変えるの？ 条件と配列を画面に変えます。",
     conclusion: "条件付きレンダーは今の状態に合う表示を選び、list renderingは配列をmapで複数の表示に変えます。",
     lesson: "トグルで表示を切り替え、配列に項目を追加して、画面が増える様子を見ます。",
+    textbook: {
+      build: "学習トピック一覧を作り、項目の追加・削除、空状態、読み込み中、エラー表示を切り替えます。実アプリでよく出る状態をまとめて扱います。",
+      syntax: [
+        "条件付きレンダーでは、if、三項演算子、&&を使って表示を切り替えます。",
+        "配列はmapでJSXの配列に変換します。一覧表示の基本です。",
+        "keyはReactが項目を見分けるための名札です。できるだけ安定したidを使います。",
+        "空状態、loading、error、successを分けると、実用的なUIになります。",
+      ],
+      codeReading: [
+        "まずstatusやitemsのような状態を探します。画面の分岐条件になります。",
+        "次にifや三項演算子を見て、どの条件で何を表示するか確認します。",
+        "mapの中では、配列の1件がどのJSXに変わるかを見ます。",
+        "keyに何を使っているかを確認し、並び替えや削除に強いか考えます。",
+      ],
+      tryThis: [
+        "項目が0件のときだけ空メッセージを出す。",
+        "項目にidを追加し、keyをidに変える。",
+        "loading、error、successを切り替えるstateを追加する。",
+      ],
+      next: "次章では、Reactの外側の出来事と同期します。タイマーやデータ取得にはuseEffectが関わります。",
+    },
     readerGuide: {
       beginner: "条件は表示の分岐、配列は同じ形の繰り返しです。読み込み中、空、成功、エラーを画面の状態として分けます。",
       intermediate: "中級者は、keyの安定性、index keyの危険、条件分岐の読みやすさ、データ構造とUI構造の対応を見ます。",
@@ -781,6 +914,26 @@ return (
     intro: "タイマーやAPIのようなReactの外側の出来事はどこに書くの？ useEffectは外の世界と画面を同期する入口です。",
     conclusion: "useEffectは、時間、ブラウザAPI、データ取得など、Reactの外側と同期する必要がある時に使います。",
     lesson: "タイマー開始/停止で、外の時間、state、画面表示がつながる様子を見ます。",
+    textbook: {
+      build: "開始・停止できるタイマーを作ります。setIntervalで外の時間が進み、useEffectを通じてstateと画面が同期する流れを確認します。",
+      syntax: [
+        "useEffectは、Reactの外側と同期する時に使います。表示用の計算を何でも入れる場所ではありません。",
+        "依存配列は、Effectをいつ実行し直すかを決めます。",
+        "returnでcleanup関数を返すと、タイマーや購読を片付けられます。",
+        "API取得ではloading、error、successを分けると画面が読みやすくなります。",
+      ],
+      codeReading: [
+        "まずEffectの中で何と同期しているかを見ます。タイマーなのか、APIなのか、ブラウザAPIなのかを分けます。",
+        "次に依存配列を見ます。どの値が変わるとEffectが実行し直されるか確認します。",
+        "cleanupがあるかを確認します。外側で始めた処理を止めているかが重要です。",
+      ],
+      tryThis: [
+        "タイマーの間隔を1秒から0.5秒に変える。",
+        "停止中はsecondsを増やさないようにする。",
+        "リセット時にrunningもfalseへ戻す。",
+      ],
+      next: "次は、state、条件分岐、リストを組み合わせて、実際によくあるUIパターンを作ります。",
+    },
     readerGuide: {
       beginner: "useEffectは何でも入れる場所ではなく、Reactの外側とつながる場所です。タイマーやAPIのような外部の出来事を扱います。",
       intermediate: "中級者は、依存配列、cleanup、不要なEffect、fetchのloading/error/success、Server Componentとの役割分担まで見ます。",
@@ -861,6 +1014,26 @@ return (
     intro: "Reactを覚えたのに画面が作れないのはなぜ？ フォーム、タブ、検索、空状態のような型を知ると手が動きます。",
     conclusion: "UIパターンは、state、event、conditional、listを組み合わせたよくある形です。型を知ると作れる画面が増えます。",
     lesson: "ログイン中/ログアウト中を切り替え、空状態と成功状態の表示を見ます。",
+    textbook: {
+      build: "タブ、検索結果、空状態、エラー状態の小さなUIを作ります。Reactの基本概念が実際の画面でどう組み合わさるかを見ます。",
+      syntax: [
+        "タブUIでは、現在選ばれているタブをstateで持ちます。",
+        "検索UIでは、入力値をstateで持ち、配列をfilterして表示します。",
+        "モーダルやメニューでは、開いているかどうかをbooleanのstateで持つことが多いです。",
+        "送信中や読み込み中は、ボタン文言やdisabled状態にも反映します。",
+      ],
+      codeReading: [
+        "まず、そのUIが何を覚える必要があるかを探します。activeTab、query、isOpenなどです。",
+        "次に、どのイベントでstateが変わるかを見ます。",
+        "最後に、stateによって表示がどう分岐するかを確認します。",
+      ],
+      tryThis: [
+        "タブを1つ追加する。",
+        "検索結果が0件の時に空状態を表示する。",
+        "送信中だけボタンをdisabledにする。",
+      ],
+      next: "次章では、Reactの部品をNext.jsのページ、URL、データ取得へつなげます。",
+    },
     readerGuide: {
       beginner: "フォーム、タブ、検索、空状態は、Reactの基本概念の組み合わせです。新しい魔法ではなく、stateと条件分岐の応用として見ます。",
       intermediate: "中級者は、成功状態だけでなくloading、error、empty、disabled、送信中などの状態設計をUI品質として扱います。",
@@ -940,6 +1113,26 @@ return (
     intro: "ReactとNext.jsは何が違うの？ Reactは部品、Next.jsはURLやサーバーまで含めたWebアプリの土台です。",
     conclusion: "ReactはUI部品を作る道具で、Next.jsはその部品をページ、URL、データ取得、公開へつなげる土台です。",
     lesson: "Server ComponentとClient Componentの役割を切り替えて見ます。",
+    textbook: {
+      build: "記事一覧ページと記事詳細ページを例に、Reactの部品がNext.jsのURLへ配置される流れを学びます。Client Componentが必要な場所も見分けます。",
+      syntax: [
+        "App Routerでは、app配下のフォルダとpage.tsxがURLに対応します。",
+        "Server Componentはサーバー側で描ける部品です。stateやonClickは使いません。",
+        "Client Componentはブラウザで動く部品です。useStateやイベントが必要な時に使います。",
+        "metadataはページのタイトルや説明を検索エンジンやSNSに伝えるために使います。",
+      ],
+      codeReading: [
+        "まずapp配下のファイルパスを見て、どのURLになるか確認します。",
+        "次に、その部品にuseStateやonClickがあるか確認します。あればClient Component候補です。",
+        "データ取得がどこで行われているかを見ます。サーバー側でよいのか、ブラウザ側が必要なのかを分けます。",
+      ],
+      tryThis: [
+        "app/about/page.tsxを作るとしたらURLが何になるか説明する。",
+        "いいねボタンを作るならClient Componentが必要か考える。",
+        "記事一覧のmetadataに入れる説明文を考える。",
+      ],
+      next: "次章では、部品の分け方そのものを扱います。Atomic DesignやUIライブラリ比較へ進みます。",
+    },
     readerGuide: {
       beginner: "ReactとNext.jsを同じものにせず、Reactは部品、Next.jsはページやURLまで含めた土台として分けます。",
       intermediate: "中級者は、Server ComponentとClient Component、データ取得の場所、use clientの境界、キャッシュの見通しまで意識します。",
@@ -1022,6 +1215,26 @@ export function LikeButton() {
     intro: "部品は小さく分ければ正解なの？ Atomic DesignとUIライブラリ比較を、初心者が迷わない範囲で整理します。",
     conclusion: "コンポーネント設計は、名前を付けると理解しやすくなる単位で分けることです。Atomic DesignやUIライブラリは、そのための道具です。",
     lesson: "Button、SearchForm、ArticleCard、ArticleListを並べ、分け方とUIライブラリのtrade-offを見ます。",
+    textbook: {
+      build: "Button、Input、SearchForm、ArticleCard、ArticleListを例に、どの粒度で部品に分けるかを考えます。UIライブラリを使う場合との違いも比べます。",
+      syntax: [
+        "Atomic Designは、atoms、molecules、organisms、templates、pagesのように粒度を分ける考え方です。",
+        "UIライブラリは、見た目やふるまいが整った部品を使う選択肢です。",
+        "headless UIは見た目を決めすぎず、アクセシビリティやふるまいを助けます。",
+        "design tokenは、色、余白、文字サイズなどのデザイン上の値を名前付きで扱う考え方です。",
+      ],
+      codeReading: [
+        "まず部品名を見て、画面上の役割が伝わるか確認します。",
+        "次にpropsを見て、外から何を変えられる部品か確認します。",
+        "最後に、その部品が小さすぎないか、大きすぎないかを画面の役割で判断します。",
+      ],
+      tryThis: [
+        "SearchFormをInputとButtonに分ける。",
+        "ArticleCardに長いタイトルを渡した時の表示を考える。",
+        "MUI、shadcn/ui、Tailwindのみの実装を、自由度と速さで比べる。",
+      ],
+      next: "次章では、作った部品をStorybookで状態ごとに確認し、壊れにくくする方法へ進みます。",
+    },
     readerGuide: {
       beginner: "部品は小さくすれば正解ではありません。名前を付けると読みやすくなる単位で分ける、という基準を持ちます。",
       intermediate: "中級者は、Atomic Design、compound component、headless UI、design token、UIライブラリの依存コストを比較します。",
@@ -1101,6 +1314,26 @@ pages:
     intro: "ページ全体を開かないと部品を確認できないの？ Storybookは部品だけを並べて、状態ごとに見比べる作業台です。",
     conclusion: "Storybookは部品の状態を確認する作業台です。Storyshotsは現在では非推奨・メンテナンス終了扱いとして、test-runnerやvisual regressionへつなげます。",
     lesson: "Buttonのnormal、loading、disabled、error相当を切り替え、どの確認方法が何を見つけるか比べます。",
+    textbook: {
+      build: "Buttonのnormal、loading、disabled、errorのStoryを用意し、状態ごとに確認します。Storyshotsの考え方と現代的な代替も整理します。",
+      syntax: [
+        "Storyは、コンポーネントのある状態を切り出した見本です。",
+        "Storybookは、部品をページから切り離して確認する作業台です。",
+        "Storyshotsは現在では非推奨・メンテナンス終了扱いとして説明します。",
+        "現代的にはtest-runner、Portable Stories、visual regression testingを検討します。",
+      ],
+      codeReading: [
+        "まずStory名を見て、どの状態を確認しているか把握します。",
+        "次にargsを見て、コンポーネントへどんなpropsを渡しているか確認します。",
+        "最後に、そのStoryで何を検証したいのかを考えます。見た目、操作、アクセシビリティを分けます。",
+      ],
+      tryThis: [
+        "ButtonにLoading Storyを追加する。",
+        "空状態のArticleList Storyを考える。",
+        "visual regressionで検出したい見た目の崩れを1つ書く。",
+      ],
+      next: "最後に、custom hookやContextなど、困りごとが見えてから使う発展的な道具へ進みます。",
+    },
     readerGuide: {
       beginner: "Storybookはページから部品だけを取り出して見る作業台です。まずは通常、loading、disabled、errorを並べる価値を見ます。",
       intermediate: "中級者は、Storybook test-runner、Portable Stories、visual regression、Storyshotsの非推奨化を品質戦略として整理します。",
@@ -1181,6 +1414,26 @@ export const Disabled = {
     intro: "HooksやContextは最初から全部覚えるべき？ 便利な道具は、重複やprops drillingの困りごとが見えてから使います。",
     conclusion: "custom hookはロジックに名前を付けて再利用する道具、Contextは深いprops渡しを減らす道具です。必要になってから使います。",
     lesson: "useCounterを2つのUIで使い回し、Contextが必要な場面と不要な場面を見ます。",
+    textbook: {
+      build: "useCounterを作り、2つの別々のUIで同じロジックを使います。さらに、Contextが必要になる場面と不要な場面を比べます。",
+      syntax: [
+        "custom hookは、Hookを使うロジックに名前を付けて再利用する関数です。",
+        "Contextは、深い階層へpropsを渡し続けるつらさを減らすための仕組みです。",
+        "reducerは、複雑な状態更新をイベント名と処理に分けて整理する道具です。",
+        "useMemoやuseCallbackは、困ってから使う最適化です。最初から入れる必要はありません。",
+      ],
+      codeReading: [
+        "まずcustom hookが何を受け取り、何を返しているか見ます。",
+        "次に、複数のUIで同じhookを使っているか確認します。",
+        "Contextが出てきたら、本当に多くの階層で必要な値かを確認します。",
+      ],
+      tryThis: [
+        "useCounterにdecrementを追加する。",
+        "2つのカウンターの初期値を変える。",
+        "テーマ色をContextに入れるべきか、propsで十分かを説明する。",
+      ],
+      next: "ここまで来たら、Reactの中心である『値から画面を作る』に戻ります。道具が増えても、この見方が土台です。",
+    },
     readerGuide: {
       beginner: "custom hookやContextは最初から覚える全部入りセットではありません。重複やpropsの受け渡しで困ってから使う道具です。",
       intermediate: "中級者は、ロジック再利用、props drilling、reducer、Context分割、useMemo/useCallbackの使いどころを判断軸として見ます。",
